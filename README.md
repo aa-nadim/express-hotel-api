@@ -1,5 +1,22 @@
 # Hotel Details REST API
 
+This project provides REST APIs for serving hotel details using Node.js, Express.js and TypeScript.
+
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Folder Structure](#folder_structure)
+- [Request](#request)
+
+## Features
+
+- Serve hotel details from JSON file.
+- Robust error handling to prevent app crashes
+- Proper HTTP status codes and response/error messages
 
 ## Prerequisites
 
@@ -9,16 +26,16 @@
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/aa-nadim/hotel-api.git
-    cd hotel-api
+    git clone https://github.com/aa-nadim/express-hotel-api.git
+    cd express-hotel-api.git
     ```
 
 2. Install dependencies:
     ```bash
     npm i
-
-    npm run dev
     ```
+## Usage 
+```npm run dev ```
 
 ## API Endpoints
 ```
@@ -27,11 +44,23 @@ Get all hotels
     URL: /api/hotels
     Method: GET
     Description: Retrieve a list of all hotels.
+
+Get all images
+
+    URL: /api/images
+    Method: GET
+    Description: Retrieve a list of all images.
+
+Get all rooms
+
+    URL: /api/rooms
+    Method: GET
+    Description: Retrieve a list of all rooms.
 ```
 
 ## Folder Structure
 ```
-hotel-api/
+express-hotel-api.git/
 ├── src/
 │   ├── config/
 │   │   └── config.ts
@@ -140,7 +169,7 @@ curl -X PUT http://localhost:3000/api/hotel/[hotel-id] \
 }'
 
 
-curl -X PUT http://localhost:3000/api/hotel/1731389272228 \
+curl -X PUT http://localhost:3000/api/hotel/[hotel-id] \
 -H "Content-Type: application/json" \
 -d '{
    "rooms": [

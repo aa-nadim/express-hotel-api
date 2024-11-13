@@ -12,7 +12,7 @@ curl http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17
 curl -X POST http://localhost:3000/api/hotel \
 -H "Content-Type: application/json" \
 -d '{
-  "title": "Luxury Suite Hotel-999999999999999929999",
+  "title": "--& Luxury Suite Hotel-5 * ___ star----",
   "description": "",
   "guestCount": 4,
   "bedroomCount": 2,

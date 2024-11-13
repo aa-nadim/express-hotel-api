@@ -82,6 +82,8 @@ express-hotel-api.git/
 │   │   ├── hotelController.ts
 │   │   ├── imageController.ts
 │   │   └── roomController.ts
+│   ├── data
+│   │   └── 8c2114f5-5679-4749-a46e-26cffdfc8d17.json(for example)
 │   ├── interfaces/
 │   │   └── hotelInterface.ts
 │   ├── middleware/
@@ -99,14 +101,13 @@ express-hotel-api.git/
 │   │   └── roomService.ts
 │   ├── utils/
 │   │   ├── database.ts
+│   │   ├── slug.ts
 │   │   └── validation.ts
 │   └── app.ts
 ├── tests/
 │   └── hotel.test.ts
 ├── uploads/
-│   └── 
-├── .env
-├── .eslintrc.json
+│   └── 1731478221396-1.png(for example)
 ├── .gitignore
 ├── jest.config.js
 ├── package.json

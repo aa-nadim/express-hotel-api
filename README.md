@@ -35,7 +35,9 @@ This project provides REST APIs for serving hotel details using Node.js, Express
     npm i
     ```
 ## Usage 
-```npm run dev ```
+```
+npm run dev 
+```
 
 ## API Endpoints
 ```

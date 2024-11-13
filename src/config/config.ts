@@ -14,4 +14,9 @@ export const config = {
   maxImagesPerUpload: 10
 };
 
-export default config;
+// export default config;
+
+export default {
+  dataDir: path.join(__dirname, '../data'),
+  uploadDir: path.join(__dirname, '../../uploads'),
+};

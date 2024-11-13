@@ -2,130 +2,175 @@
 import fs from 'fs';
 import path from 'path';
 import { Request, Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';  // Using uuid for unique hotel-id generation
+import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer';
+import config from '../config/config';
 
-const dataDir = path.join(__dirname, '../data');  // Directory where the hotel JSON files will be saved
-
-// Make sure the data directory exists
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir);
-}
-
-export const getAllHotels = (req: Request, res: Response) => {
-  const files = fs.readdirSync(dataDir);
-  const hotels = files.map((file) => {
-    const filePath = path.join(dataDir, file);
+// Helper function to read hotel data safely
+const readHotelData = (filePath: string) => {
+  try {
     const fileData = fs.readFileSync(filePath, 'utf-8');
     return JSON.parse(fileData);
-  });
-  res.status(200).json(hotels);
-};
-
-export const getHotelById = (req: Request, res: Response) => {
-  const { hotelId } = req.params;
-  const filePath = path.join(dataDir, `${hotelId}.json`);
-
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ message: 'Hotel not found' });
+  } catch (error) {
+    return null;
   }
-
-  const hotelData = fs.readFileSync(filePath, 'utf-8');
-  res.status(200).json(JSON.parse(hotelData));
 };
 
+// Helper function to validate hotel data based on test requirements
+const isValidHotelData = (data: any) => {
+  const requiredFields = [
+    'title',
+    'description',
+    'guestCount',
+    'bedroomCount',
+    'bathroomCount',
+    'amenities',
+    'host',
+    'address',
+    'location'
+  ];
+
+  return requiredFields.every(field => data.hasOwnProperty(field)) &&
+    Array.isArray(data.amenities) &&
+    typeof data.host === 'object' &&
+    typeof data.address === 'object' &&
+    typeof data.location === 'object';
+};
+
+// POST /api/hotel - Create a new hotel
 export const createHotel = (req: Request, res: Response) => {
   const hotelData = req.body;
-  const hotelId = uuidv4();  // Create a unique hotel ID
-  const hotelFilePath = path.join(dataDir, `${hotelId}.json`);
-
-  // Save the hotel data in the corresponding file
-  fs.writeFileSync(hotelFilePath, JSON.stringify(hotelData, null, 2));
-
-  res.status(201).json({ hotelId, ...hotelData });
-};
-
-// Update hotel data
-export const updateHotel = (req: Request, res: Response) => {
-  const { hotelId } = req.params;
-  const hotelPath = path.join(dataDir, `${hotelId}.json`);
-
-  // Check if hotel file exists
-  if (!fs.existsSync(hotelPath)) {
-    return res.status(404).json({ message: 'Hotel not found' });
+  
+  if (!isValidHotelData(hotelData)) {
+    return res.status(400).json({ message: 'Invalid hotel data' });
   }
+
+  const hotelId = uuidv4();
+  const fileName = `${hotelId}.json`;
+  const filePath = path.join(config.dataDir, fileName);
 
   try {
-    // Read existing hotel data
-    const existingData = JSON.parse(fs.readFileSync(hotelPath, 'utf-8'));
-
-    // Merge existing data with incoming data
-    const updatedData = { ...existingData, ...req.body };
-
-    // Write the updated data back to the JSON file
-    fs.writeFileSync(hotelPath, JSON.stringify(updatedData, null, 2));
-
-    res.status(200).json(updatedData);
+    const hotel = {
+      hotelId,
+      ...hotelData
+    };
+    fs.writeFileSync(filePath, JSON.stringify(hotel, null, 2));
+    res.status(201).json(hotel);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating hotel data' });
+    res.status(500).json({ message: 'Failed to create hotel', error });
   }
 };
 
+// GET /api/hotels - Retrieve all hotels
+export const getAllHotels = (req: Request, res: Response) => {
+  try {
+    const files = fs.readdirSync(config.dataDir);
+    const hotels = files
+      .filter(file => file.endsWith('.json'))
+      .map(file => {
+        const filePath = path.join(config.dataDir, file);
+        return readHotelData(filePath);
+      })
+      .filter(hotel => hotel !== null);
+    
+    res.status(200).json(hotels);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to retrieve hotels', error });
+  }
+};
 
-// Set up multer storage configuration
+// GET /api/hotel/:hotelId - Retrieve a specific hotel
+export const getHotelById = (req: Request, res: Response) => {
+  const { hotelId } = req.params;
+  const filePath = path.join(config.dataDir, `${hotelId}.json`);
+
+  try {
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ message: 'Hotel not found' });
+    }
+
+    const hotelData = readHotelData(filePath);
+    if (!hotelData) {
+      return res.status(500).json({ message: 'Failed to read hotel data' });
+    }
+
+    res.status(200).json(hotelData);
+  } catch (error) {
+    res.status(500).json({ message: 'Error retrieving hotel', error });
+  }
+};
+
+// PUT /api/hotel/:hotelId - Update hotel
+export const updateHotel = (req: Request, res: Response) => {
+  const { hotelId } = req.params;
+  const filePath = path.join(config.dataDir, `${hotelId}.json`);
+
+  try {
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ message: 'Hotel not found' });
+    }
+
+    const existingData = readHotelData(filePath);
+    if (!existingData) {
+      return res.status(500).json({ message: 'Failed to read existing hotel data' });
+    }
+
+    const updatedData = { ...existingData, ...req.body };
+    fs.writeFileSync(filePath, JSON.stringify(updatedData, null, 2));
+    res.status(200).json(updatedData);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating hotel', error });
+  }
+};
+
+// Configure multer for image uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, '../../uploads');
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
+    const uploadDir = path.join(process.cwd(), 'uploads');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
     }
-    cb(null, uploadPath);
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
   }
 });
 
-const upload = multer({ storage });
+export const upload = multer({ storage });
 
-// POST /api/hotel/:hotelId/images - Upload images
+// POST /api/hotel/:hotelId/images - Upload hotel images
 export const uploadHotelImages = [
   upload.array('images'),
   async (req: Request, res: Response) => {
+    const { hotelId } = req.params;
+    const files = req.files as Express.Multer.File[];
+    const filePath = path.join(config.dataDir, `${hotelId}.json`);
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ message: 'Hotel not found' });
+    }
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({ message: 'No images uploaded' });
+    }
+
     try {
-      const { hotelId } = req.params;
-      const uploadedFiles = req.files as Express.Multer.File[];
-
-      // Check if images were uploaded
-      if (!uploadedFiles || uploadedFiles.length === 0) {
-        return res.status(400).json({ message: 'No images uploaded' });
+      const hotelData = readHotelData(filePath);
+      if (!hotelData) {
+        return res.status(500).json({ message: 'Failed to read hotel data' });
       }
 
-      // Generate image paths
-      const imagePaths = uploadedFiles.map(file => `/uploads/${file.filename}`);
+      const imagePaths = files.map(file => `/uploads/${file.filename}`);
+      hotelData.images = [...(hotelData.images || []), ...imagePaths];
 
-      // Path to the hotel JSON file
-      const hotelPath = path.join(dataDir, `${hotelId}.json`);
-
-      // Check if the hotel record exists
-      if (!fs.existsSync(hotelPath)) {
-        return res.status(404).json({ message: 'Hotel not found' });
-      }
-
-      // Read the current hotel data
-      const hotelData = JSON.parse(fs.readFileSync(hotelPath, 'utf-8'));
-
-      // Add images to the hotel's `images` array, or create it if it doesn't exist
-      hotelData.images = hotelData.images ? hotelData.images.concat(imagePaths) : imagePaths;
-
-      // Write the updated hotel data back to the JSON file
-      fs.writeFileSync(hotelPath, JSON.stringify(hotelData, null, 2));
-
-      // Respond with success and the new image paths
-      return res.status(200).json({ message: 'Images uploaded successfully', images: imagePaths });
+      fs.writeFileSync(filePath, JSON.stringify(hotelData, null, 2));
+      res.status(200).json({ 
+        message: 'Images uploaded successfully', 
+        images: imagePaths 
+      });
     } catch (error) {
-      console.error('Error uploading images:', error);
-      return res.status(500).json({ message: 'Failed to upload images', error });
+      res.status(500).json({ message: 'Failed to process image upload', error });
     }
   }
 ];

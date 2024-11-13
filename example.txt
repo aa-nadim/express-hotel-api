@@ -6,14 +6,14 @@ curl http://localhost:3000/api/rooms
 
 
 
-curl http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593
+curl http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17
 
 
 curl -X POST http://localhost:3000/api/hotel \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Luxury Suite Hotel-999999999999999929999",
-  "description": "A beautiful luxury hotel",
+  "description": "",
   "guestCount": 4,
   "bedroomCount": 2,
   "bathroomCount": 2,
@@ -67,12 +67,6 @@ curl -X POST http://localhost:3000/api/hotel \
   },
   "id": "1731389272228",
   "slug": "dhaka-hotel-5star",
-  "images": [
-    "/uploads/1731392952626-577730834.png",
-    "/uploads/1731392952638-468673036.png",
-    "/uploads/1731395511734-205512735.png",
-    "/uploads/1731395511737-106499270.png"
-  ],
   "rooms": [
     {
       "hotelSlug": "dhaka-hotel-5star",
@@ -109,7 +103,7 @@ curl -X POST http://localhost:3000/api/hotel \
 
 
 
-curl -X PUT http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593 \
+curl -X PUT http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17 \
 -H "Content-Type: application/json" \
 -d '{
   "title": "CTG—--------------3star"
@@ -117,7 +111,7 @@ curl -X PUT http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593
 
 /home/w3e12/Desktop/img/
 
-curl -X POST http://localhost:3000/api/hotel/2b1478e1-4c13-40f0-ba1c-684f93d8feac/images \
+curl -X POST http://localhost:3000/api/hotel/b4434d1c-7c30-4a3c-9bcc-43531a91a736/images \
 -F "images=@/home/w3e12/Desktop/img/3.png" \
 -F "images=@/home/w3e12/Desktop/img/4.png"
 
@@ -131,7 +125,7 @@ curl -X POST http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b59
 
 
 
-curl -X PUT http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593  \
+curl -X PUT http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17  \
 -H "Content-Type: application/json" \
 -d '{
    "rooms": [

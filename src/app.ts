@@ -19,6 +19,14 @@ app.use('/api', hotelRoutes);
 app.use('/api', imageRoutes);
 app.use('/api', roomRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+
+export { app };
+
+// Start the server if this file is run directly
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}

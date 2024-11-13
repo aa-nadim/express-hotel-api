@@ -1,3 +1,5 @@
 node_modules/
 uploads/*
+!uploads/1731478221396-1.png
 src/data/*
+!src/data/8c2114f5-5679-4749-a46e-26cffdfc8d17.json

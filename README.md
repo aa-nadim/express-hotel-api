@@ -35,8 +35,20 @@ This project provides REST APIs for serving hotel details using Node.js, Express
     npm i
     ```
 ## Usage 
+
+1.
 ```
 npm run dev 
+```
+2. 
+```
+npm test
+
+npm test -- tests/hotelController.test.ts
+
+npm test -- tests/imageController.test.ts
+
+npm test -- tests/roomController.test.ts
 ```
 
 ## API Endpoints

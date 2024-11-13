@@ -1,0 +1,28 @@
+{
+  "hotelId": "6bb9e701-45be-4354-9de3-071f7c0e63ef",
+  "title": "--& Luxury Suite Hotel-5 * ___ star----",
+  "description": "sdfgdsdsgad",
+  "guestCount": 4,
+  "bedroomCount": 2,
+  "bathroomCount": 2,
+  "amenities": [
+    "wifi",
+    "pool"
+  ],
+  "host": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890"
+  },
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "zipCode": "10001"
+  },
+  "location": {
+    "latitude": 40.7128,
+    "longitude": -74.006
+  }
+}

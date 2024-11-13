@@ -1,11 +1,9 @@
-//tests/hotelController.test.ts
-
 import request from 'supertest';
 import path from 'path';
 import fs from 'fs/promises';
 import { app } from '../src/app';
-import { setupTestEnvironment, cleanupTestEnvironment, createTestFile } from './setup'; 
-import config from '../src/config/config'; 
+import { setupTestEnvironment, cleanupTestEnvironment, createTestFile } from './setup';
+import config from '../src/config/config';
 
 describe('Hotel Controller', () => {
   beforeAll(async () => {
@@ -61,9 +59,7 @@ describe('Hotel Controller', () => {
     });
 
     it('should return 400 for invalid hotel data', async () => {
-      const invalidData = {
-        title: 'Test', // Missing required fields
-      };
+      const invalidData = { title: 'Test' }; // Missing required fields
 
       await request(app)
         .post('/api/hotel')
@@ -74,7 +70,6 @@ describe('Hotel Controller', () => {
 
   describe('GET /api/hotels', () => {
     it('should return all hotels', async () => {
-      // Create test hotels
       const testHotels = [
         { id: '1', title: 'Hotel A' },
         { id: '2', title: 'Hotel B' }
@@ -106,10 +101,7 @@ describe('Hotel Controller', () => {
 
   describe('GET /api/hotel/:hotelId', () => {
     it('should return specific hotel by ID', async () => {
-      const testHotel = {
-        id: 'test-id',
-        title: 'Test Hotel'
-      };
+      const testHotel = { id: 'test-id', title: 'Test Hotel' };
 
       await createTestFile('test-id.json', testHotel);
 
@@ -129,17 +121,10 @@ describe('Hotel Controller', () => {
 
   describe('PUT /api/hotel/:hotelId', () => {
     it('should update existing hotel', async () => {
-      const testHotel = {
-        id: 'test-id',
-        title: 'Original Title'
-      };
-
+      const testHotel = { id: 'test-id', title: 'Original Title' };
       await createTestFile('test-id.json', testHotel);
 
-      const updates = {
-        title: 'Updated Title'
-      };
-
+      const updates = { title: 'Updated Title' };
       const response = await request(app)
         .put('/api/hotel/test-id')
         .send(updates)
@@ -158,16 +143,9 @@ describe('Hotel Controller', () => {
 
   describe('POST /api/hotel/:hotelId/images', () => {
     it('should upload hotel images', async () => {
-      // Create test hotel
-      const testHotel = {
-        id: 'test-id',
-        title: 'Test Hotel',
-        images: []
-      };
-
+      const testHotel = { id: 'test-id', title: 'Test Hotel', images: [] };
       await createTestFile('test-id.json', testHotel);
 
-      // Create test image
       const testImagePath = path.join(__dirname, '../uploads/test-image.jpg');
       await fs.writeFile(testImagePath, 'fake image content');
 
@@ -179,8 +157,7 @@ describe('Hotel Controller', () => {
       expect(response.body.message).toBe('Images uploaded successfully');
       expect(response.body.images).toHaveLength(1);
 
-      // Cleanup
-      await fs.unlink(testImagePath);
+      await fs.unlink(testImagePath); // Cleanup
     });
 
     it('should return 404 for uploading to non-existent hotel', async () => {
@@ -192,8 +169,7 @@ describe('Hotel Controller', () => {
         .attach('images', testImagePath)
         .expect(404);
 
-      // Cleanup
-      await fs.unlink(testImagePath);
+      await fs.unlink(testImagePath); // Cleanup
     });
   });
 });

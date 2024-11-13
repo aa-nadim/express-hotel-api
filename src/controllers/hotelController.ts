@@ -37,6 +37,11 @@ const isValidHotelData = (data: any) => {
     typeof data.location === 'object';
 };
 
+
+// At the top of your createHotel function, before writing the file
+if (!fs.existsSync(config.dataDir)) {
+  fs.mkdirSync(config.dataDir, { recursive: true });
+}
 // POST /api/hotel - Create a new hotel
 export const createHotel = (req: Request, res: Response) => {
   const hotelData = req.body;

@@ -48,7 +48,6 @@ npm test -- tests/hotelController.test.ts
 
 npm test -- tests/imageController.test.ts
 
-npm test -- tests/roomController.test.ts
 ```
 
 ## API Endpoints

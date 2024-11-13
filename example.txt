@@ -1,0 +1,168 @@
+curl http://localhost:3000/api/hotels
+
+curl http://localhost:3000/api/images
+
+curl http://localhost:3000/api/rooms
+
+
+
+curl http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593
+
+
+curl -X POST http://localhost:3000/api/hotel \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "Luxury Suite Hotel-999999999999999929999",
+  "description": "A beautiful luxury hotel",
+  "guestCount": 4,
+  "bedroomCount": 2,
+  "bathroomCount": 2,
+  "amenities": ["wifi", "pool"],
+  "host": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890"
+  },
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "zipCode": "10001"
+  },
+  "location": {
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  }
+}'
+
+
+curl -X POST http://localhost:3000/api/hotel \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "Dhaka hotel—--------------5star",
+  "description": "A beautiful luxury hotel",
+  "guestCount": 4,
+  "bedroomCount": 2,
+  "bathroomCount": 2,
+  "amenities": [
+    "wifi",
+    "pool"
+  ],
+  "host": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+1234567890"
+  },
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "zipCode": "10001"
+  },
+  "location": {
+    "latitude": 40.7128,
+    "longitude": -74.006
+  },
+  "id": "1731389272228",
+  "slug": "dhaka-hotel-5star",
+  "images": [
+    "/uploads/1731392952626-577730834.png",
+    "/uploads/1731392952638-468673036.png",
+    "/uploads/1731395511734-205512735.png",
+    "/uploads/1731395511737-106499270.png"
+  ],
+  "rooms": [
+    {
+      "hotelSlug": "dhaka-hotel-5star",
+      "roomSlug": "luxury-suite",
+      "roomImage": "/uploads/1731392952626-577730834.png",
+      "roomTitle": "Luxury Suite",
+      "bedroomCount": 1
+    },
+    {
+      "hotelSlug": "dhaka-hotel-5star",
+      "roomSlug": "executive-suite",
+      "roomImage": "/uploads/1731392952638-468673036.png",
+      "roomTitle": "Executive Suite",
+      "bedroomCount": 2
+    },
+    {
+      "hotelSlug": "dhaka-hotel-5star",
+      "roomSlug": "family-suite",
+      "roomImage": "/uploads/1731395511734-205512735.png",
+      "roomTitle": "Family Suite",
+      "bedroomCount": 2
+    },
+    {
+      "hotelSlug": "dhaka-hotel-5star",
+      "roomSlug": "presidential-suite",
+      "roomImage": "/uploads/1731395511737-106499270.png",
+      "roomTitle": "Presidential Suite",
+      "bedroomCount": 3
+    }
+  ]
+  }'
+
+
+
+
+
+curl -X PUT http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593 \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "CTG—--------------3star"
+}'
+
+/home/w3e12/Desktop/img/
+
+curl -X POST http://localhost:3000/api/hotel/2b1478e1-4c13-40f0-ba1c-684f93d8feac/images \
+-F "images=@/home/w3e12/Desktop/img/3.png" \
+-F "images=@/home/w3e12/Desktop/img/4.png"
+
+curl -X POST http://localhost:3000/api/hotel/907d9ae5-d920-45f4-a27d-efd36ca14000/images \
+-F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\1.png" \
+-F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\7.png"
+
+curl -X POST http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593/images \
+-F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\2.png" \
+-F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\3.png"
+
+
+
+curl -X PUT http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593  \
+-H "Content-Type: application/json" \
+-d '{
+   "rooms": [
+    {
+      "hotelSlug": "ctg-5-star",
+      "roomSlug": "luxury-suite",
+      "roomImage": "/uploads/1731392952626-577730834.png",
+      "roomTitle": "Luxury Suite",
+      "bedroomCount": 1
+    },
+    {
+      "hotelSlug": "ctg-5-star",
+      "roomSlug": "executive-suite",
+      "roomImage": "/uploads/1731392952638-468673036.png",
+      "roomTitle": "Executive Suite",
+      "bedroomCount": 2
+    },
+    {
+      "hotelSlug": "ctg-5-star",
+      "roomSlug": "family-suite",
+      "roomImage": "/uploads/1731395511734-205512735.png",
+      "roomTitle": "Family Suite",
+      "bedroomCount": 2
+    },
+    {
+      "hotelSlug": "ctg-5-star",
+      "roomSlug": "presidential-suite",
+      "roomImage": "/uploads/1731395511737-106499270.png",
+      "roomTitle": "Presidential Suite",
+      "bedroomCount": 3
+    }
+  ]
+}'
+

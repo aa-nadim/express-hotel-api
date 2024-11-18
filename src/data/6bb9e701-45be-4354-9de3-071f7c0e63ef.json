@@ -1,6 +1,6 @@
 {
   "hotelId": "6bb9e701-45be-4354-9de3-071f7c0e63ef",
-  "title": "--& Luxury Suite Hotel-5 * ___ star----",
+  "title": "hotel-------01",
   "description": "sdfgdsdsgad",
   "guestCount": 4,
   "bedroomCount": 2,
@@ -24,5 +24,13 @@
   "location": {
     "latitude": 40.7128,
     "longitude": -74.006
-  }
+  },
+  "images": [
+    "/uploads/1731920791364-1.png",
+    "/uploads/1731920884300-4.png",
+    "/uploads/1731920884306-5.png",
+    "/uploads/1731920884326-6.png",
+    "/uploads/1731920884295-3.png",
+    "/uploads/1731920791387-2.png"
+  ]
 }

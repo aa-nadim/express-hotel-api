@@ -5,7 +5,7 @@ import path from 'path';
 dotenv.config();
 
 export const config = {
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 5000,
   uploadDir: path.join(process.cwd(), process.env.UPLOAD_DIR || 'uploads'),
   dataDir: path.join(process.cwd(), 'data'),
   dataFile: path.join(process.cwd(), 'data', 'data.json'),

@@ -117,27 +117,27 @@ express-hotel-api.git/
 
 1. GET /hotels: get all hotels
 ```
-curl -X GET http://localhost:3000/api/hotels
+curl -X GET http://localhost:5000/api/hotels
 ```
 
 2. GET /images: get all images
 ```
-curl -X GET http://localhost:3000/api/images
+curl -X GET http://localhost:5000/api/images
 ```
 
 3. GET /rooms: get all rooms
 ```
-curl -X GET http://localhost:3000/api/rooms
+curl -X GET http://localhost:5000/api/rooms
 ```
 
 4. GET /hotel/{hotel-id}:
 ```
-curl -X GET http://localhost:3000/api/hotel/[hotel-id]
+curl -X GET http://localhost:5000/api/hotel/[hotel-id]
 ```
 
 5. POST /hotel:
 ```
-curl -X POST http://localhost:3000/api/hotel \
+curl -X POST http://localhost:5000/api/hotel \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Luxury Suite Hotel",
@@ -168,7 +168,7 @@ curl -X POST http://localhost:3000/api/hotel \
 
 6. POST /images:
 ```
-curl -X POST http://localhost:3000/api/hotel/[hotel-id]/images \
+curl -X POST http://localhost:5000/api/hotel/[hotel-id]/images \
 -F "images=@/yourImagePath/image.jpg" \
 -F "images=@/yourImagePath/image.png"
 ```
@@ -176,14 +176,14 @@ curl -X POST http://localhost:3000/api/hotel/[hotel-id]/images \
 
 7. PUT /hotel/{hotel-id}:
 ```
-curl -X PUT http://localhost:3000/api/hotel/[hotel-id] \
+curl -X PUT http://localhost:5000/api/hotel/[hotel-id] \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Updated Hotel Name"
 }'
 
 
-curl -X PUT http://localhost:3000/api/hotel/[hotel-id] \
+curl -X PUT http://localhost:5000/api/hotel/[hotel-id] \
 -H "Content-Type: application/json" \
 -d '{
    "rooms": [

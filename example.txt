@@ -1,15 +1,21 @@
-curl http://localhost:3000/api/hotels
+curl http://localhost:5000/api/hotels
 
-curl http://localhost:3000/api/images
+curl http://localhost:5000/api/images
 
-curl http://localhost:3000/api/rooms
-
-
-
-curl http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17
+curl http://localhost:5000/api/rooms
 
 
-curl -X POST http://localhost:3000/api/hotel \
+
+
+
+curl http://localhost:5000/api/hotel/623c5f47-747e-4bfc-952f-2743b058bb1e
+
+curl http://localhost:5000/api/hotel/4520e21d-b0a3-41b7-8785-a5449f0b59c3
+
+
+
+
+curl -X POST http://localhost:5000/api/hotel \
 -H "Content-Type: application/json" \
 -d '{
   "title": "--& Luxury Suite Hotel-5 * ___ star----",
@@ -37,7 +43,7 @@ curl -X POST http://localhost:3000/api/hotel \
 }'
 
 
-curl -X POST http://localhost:3000/api/hotel \
+curl -X POST http://localhost:5000/api/hotel \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Dhaka hotel—--------------5star",
@@ -103,7 +109,7 @@ curl -X POST http://localhost:3000/api/hotel \
 
 
 
-curl -X PUT http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17 \
+curl -X PUT http://localhost:5000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17 \
 -H "Content-Type: application/json" \
 -d '{
   "title": "CTG—--------------3star"
@@ -111,21 +117,26 @@ curl -X PUT http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17
 
 
 
-curl -X POST http://localhost:3000/api/hotel/06a4bf83-e150-4f4d-9d08-e9743469aeff/images \
--F "images=@/home/w3e12/Desktop/img/3.png" \
--F "images=@/home/w3e12/Desktop/img/4.png"
+curl -X POST http://localhost:5000/api/hotel/f4234903-2048-451d-b8c5-fe804469f739/images \
+-F "images=@/home/w3e12/Desktop/Assignment-4/images/1.png" \
+-F "images=@/home/w3e12/Desktop/Assignment-4/images/9.png" \
+-F "images=@/home/w3e12/Desktop/Assignment-4/images/2.png" \
+-F "images=@/home/w3e12/Desktop/Assignment-4/images/4.png" \
+-F "images=@/home/w3e12/Desktop/Assignment-4/images/7.png" \
+-F "images=@/home/w3e12/Desktop/Assignment-4/images/10.png" 
 
-curl -X POST http://localhost:3000/api/hotel/907d9ae5-d920-45f4-a27d-efd36ca14000/images \
+
+curl -X POST http://localhost:5000/api/hotel/907d9ae5-d920-45f4-a27d-efd36ca14000/images \
 -F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\1.png" \
 -F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\7.png"
 
-curl -X POST http://localhost:3000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593/images \
+curl -X POST http://localhost:5000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b593/images \
 -F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\2.png" \
 -F "images=@/C:\Users\G-TECH\Desktop\nadim\imgs\3.png"
 
 
 
-curl -X PUT http://localhost:3000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17  \
+curl -X PUT http://localhost:5000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17  \
 -H "Content-Type: application/json" \
 -d '{
    "rooms": [

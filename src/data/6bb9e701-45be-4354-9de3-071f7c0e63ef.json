@@ -6,6 +6,11 @@
   "bedroomCount": 2,
   "bathroomCount": 2,
   "amenities": [
+    "Barbecue grill",
+    "Washer",
+    "Kitchen",
+    "Parking available",
+    "Outdoor Space",
     "wifi",
     "pool"
   ],

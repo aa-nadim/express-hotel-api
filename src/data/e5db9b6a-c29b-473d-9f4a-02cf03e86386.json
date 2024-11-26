@@ -28,28 +28,28 @@
   },
   "rooms": [
     {
-      "hotelSlug": "dhaka-hotel-5star",
+      "hotelSlug": "ctg-5-star",
       "roomSlug": "luxury-suite",
       "roomImage": "/uploads/1731392952626-577730834.png",
       "roomTitle": "Luxury Suite",
       "bedroomCount": 1
     },
     {
-      "hotelSlug": "dhaka-hotel-5star",
+      "hotelSlug": "ctg-5-star",
       "roomSlug": "executive-suite",
       "roomImage": "/uploads/1731392952638-468673036.png",
       "roomTitle": "Executive Suite",
       "bedroomCount": 2
     },
     {
-      "hotelSlug": "dhaka-hotel-5star",
+      "hotelSlug": "ctg-5-star",
       "roomSlug": "family-suite",
       "roomImage": "/uploads/1731395511734-205512735.png",
       "roomTitle": "Family Suite",
       "bedroomCount": 2
     },
     {
-      "hotelSlug": "dhaka-hotel-5star",
+      "hotelSlug": "ctg-5-star",
       "roomSlug": "presidential-suite",
       "roomImage": "/uploads/1731395511737-106499270.png",
       "roomTitle": "Presidential Suite",
@@ -57,11 +57,7 @@
     }
   ],
   "images": [
-    "/uploads/hotel2.png",
-    "/uploads/hotel-3.png",
-    "/uploads/hotel-3.png",
-    "/uploads/hotel-3.png",
-    "/uploads/hotel-3-b84a52.png",
-    "/uploads/hotel-3-3b8ab4.png"
+    "/uploads/hotel-3-0c0ae2.png",
+    "/uploads/hotel-3-f7e1ae.png"
   ]
 }

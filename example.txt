@@ -8,7 +8,7 @@ curl http://localhost:5000/api/rooms
 
 
 
-curl http://localhost:5000/api/hotel/623c5f47-747e-4bfc-952f-2743b058bb1e
+curl http://localhost:5000/api/hotel/765dba62-9190-485e-b01c-3e28b56c5328
 
 curl http://localhost:5000/api/hotel/4520e21d-b0a3-41b7-8785-a5449f0b59c3
 
@@ -115,15 +115,11 @@ curl -X PUT http://localhost:5000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17
   "title": "CTG—--------------3star"
 }'
 
+/home/w3e12/Desktop/Assignment-3/img
 
-
-curl -X POST http://localhost:5000/api/hotel/f4234903-2048-451d-b8c5-fe804469f739/images \
--F "images=@/home/w3e12/Desktop/Assignment-4/images/1.png" \
--F "images=@/home/w3e12/Desktop/Assignment-4/images/9.png" \
--F "images=@/home/w3e12/Desktop/Assignment-4/images/2.png" \
--F "images=@/home/w3e12/Desktop/Assignment-4/images/4.png" \
--F "images=@/home/w3e12/Desktop/Assignment-4/images/7.png" \
--F "images=@/home/w3e12/Desktop/Assignment-4/images/10.png" 
+curl -X POST http://localhost:5000/api/hotel/e5db9b6a-c29b-473d-9f4a-02cf03e86386/images \
+-F "images=@/home/w3e12/Desktop/Assignment-3/img/hotel 3.png" \
+-F "images=@/home/w3e12/Desktop/Assignment-3/img/hotel   3.png" 
 
 
 curl -X POST http://localhost:5000/api/hotel/907d9ae5-d920-45f4-a27d-efd36ca14000/images \
@@ -136,7 +132,7 @@ curl -X POST http://localhost:5000/api/hotel/f5678676-95e4-43f9-85a0-24b2da71b59
 
 
 
-curl -X PUT http://localhost:5000/api/hotel/8c2114f5-5679-4749-a46e-26cffdfc8d17  \
+curl -X PUT http://localhost:5000/api/hotel/e5db9b6a-c29b-473d-9f4a-02cf03e86386  \
 -H "Content-Type: application/json" \
 -d '{
    "rooms": [

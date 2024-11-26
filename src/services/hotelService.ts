@@ -82,24 +82,27 @@ export class HotelService {
   async updateHotel(hotelId: string, updates: Partial<Hotel>): Promise<Hotel> {
     const data = await this.readData();
     
-    if (!data.hotels[hotelId]) {
+    // Safe object access with optional chaining and nullish coalescing
+    const existingHotel = data.hotels?.[hotelId];
+    if (!existingHotel) {
       throw new Error('Hotel not found');
     }
-
-    const existingHotel = data.hotels[hotelId];
 
     const updatedHotel: Hotel = {
       ...existingHotel,
       ...updates,
+      // Use optional chaining and nullish coalescing for safer updates
       slug: updates.title 
         ? slugify(updates.title, { lower: true }) 
         : existingHotel.slug,
-      images: updates.images 
-        ? [...(existingHotel.images || []), ...(updates.images || [])]
-        : existingHotel.images,
-      rooms: updates.rooms 
-        ? [...(existingHotel.rooms || []), ...(updates.rooms || [])]
-        : existingHotel.rooms
+      images: [
+        ...(existingHotel.images ?? []), 
+        ...(updates.images ?? [])
+      ],
+      rooms: [
+        ...(existingHotel.rooms ?? []), 
+        ...(updates.rooms ?? [])
+      ]
     };
 
     data.hotels[hotelId] = updatedHotel;

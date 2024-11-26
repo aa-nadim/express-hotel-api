@@ -7,6 +7,8 @@ import multer from 'multer';
 import config from '../config/config';
 import { slugify } from '../utils/slug'; 
 
+import crypto from 'crypto';
+
 // Helper function to read hotel data safely
 const readHotelData = (filePath: string) => {
   try {
@@ -31,11 +33,85 @@ const isValidHotelData = (data: any) => {
     'location'
   ];
 
-  return requiredFields.every(field => data.hasOwnProperty(field)) &&
-    Array.isArray(data.amenities) &&
-    typeof data.host === 'object' &&
-    typeof data.address === 'object' &&
-    typeof data.location === 'object';
+  // Check if all required fields exist
+  if (!requiredFields.every(field => data.hasOwnProperty(field))) {
+    return false;
+  }
+
+  // Validate string fields
+  if (
+    typeof data.title !== 'string' || data.title.trim().length === 0 ||
+    typeof data.description !== 'string' || data.description.trim().length === 0
+  ) {
+    return false;
+  }
+
+  // Validate numeric fields (positive integers)
+  const numericFields = ['guestCount', 'bedroomCount', 'bathroomCount'];
+  for (const field of numericFields) {
+    if (
+      typeof data[field] !== 'number' || 
+      !Number.isInteger(data[field]) || 
+      data[field] < 1
+    ) {
+      return false;
+    }
+  }
+
+  // Validate amenities
+  if (
+    !Array.isArray(data.amenities) || 
+    data.amenities.length === 0 || 
+    !data.amenities.every((amenity: unknown) => typeof amenity === 'string')
+  ) {
+    return false;
+  }
+
+  // Validate host object
+  if (
+    typeof data.host !== 'object' || 
+    !data.host.hasOwnProperty('name') || 
+    typeof data.host.name !== 'string' || 
+    data.host.name.trim().length === 0
+  ) {
+    return false;
+  }
+
+  // Validate address object
+  const addressFields = ['street', 'city', 'country', 'zipCode'];
+  if (
+    typeof data.address !== 'object' ||
+    !addressFields.every(field => 
+      data.address.hasOwnProperty(field) && 
+      typeof data.address[field] === 'string' && 
+      data.address[field].trim().length > 0
+    )
+  ) {
+    return false;
+  }
+
+  // Validate location object (assuming latitude and longitude)
+  if (
+    typeof data.location !== 'object' ||
+    typeof data.location.latitude !== 'number' ||
+    typeof data.location.longitude !== 'number' ||
+    data.location.latitude < -90 || 
+    data.location.latitude > 90 ||
+    data.location.longitude < -180 || 
+    data.location.longitude > 180
+  ) {
+    return false;
+  }
+
+  // Optional price validation
+  if (
+    data.price !== undefined && 
+    (typeof data.price !== 'number' || data.price <= 0)
+  ) {
+    return false;
+  }
+
+  return true;
 };
 
 
@@ -160,6 +236,40 @@ const storage = multer.diskStorage({
 
 export const upload = multer({ storage });
 
+
+
+// Custom slugify function with uniqueness
+function createUniqueSlug(filename: string, existingSlugs: string[] = []): string {
+  // Basic slugify process
+  let cleaned = filename.trim();
+  cleaned = cleaned.replace(/\s+/g, '-');
+  cleaned = cleaned.replace(/-+/g, '-');
+  cleaned = cleaned.replace(/[^a-zA-Z0-9-]/g, '');
+  cleaned = cleaned.toLowerCase();
+
+  // Generate a unique identifier
+  const uniqueId = crypto.randomBytes(4).toString('hex').slice(0, 6);
+
+  // Combine slug with unique identifier
+  let uniqueSlug = `${cleaned}-${uniqueId}`;
+
+  // Ensure uniqueness
+  let counter = 1;
+  let finalSlug = uniqueSlug;
+  while (existingSlugs.includes(finalSlug)) {
+    finalSlug = `${uniqueSlug}-${counter}`;
+    counter++;
+  }
+
+  return finalSlug;
+}
+
+// Define an interface for the hotel data structure
+interface HotelData {
+  images?: string[];
+  [key: string]: any;
+}
+
 // POST /api/hotel/:hotelId/images - Upload hotel images
 export const uploadHotelImages = [
   upload.array('images'),
@@ -177,21 +287,49 @@ export const uploadHotelImages = [
     }
 
     try {
-      const hotelData = readHotelData(filePath);
+      const hotelData: HotelData = readHotelData(filePath);
       if (!hotelData) {
         return res.status(500).json({ message: 'Failed to read hotel data' });
       }
 
-      const imagePaths = files.map(file => `/uploads/${file.filename}`);
+      // Track existing slugs to ensure uniqueness
+      const existingSlugs = (hotelData.images || [])
+        .map((imagePath: string) => path.basename(imagePath, path.extname(imagePath)));
+
+      // Slugify image filenames
+      const imagePaths = files.map(file => {
+        // Get the file extension
+        const ext = path.extname(file.originalname);
+        
+        // Create unique slug
+        const slugifiedName = createUniqueSlug(
+          path.basename(file.originalname, ext), 
+          existingSlugs
+        );
+
+        // Create the new filename with slugified name and original extension
+        const newFilename = `${slugifiedName}${ext}`;
+
+        // Rename the file
+        const newPath = path.join(file.destination, newFilename);
+        fs.renameSync(file.path, newPath);
+
+        // Add to existing slugs to prevent future duplicates
+        existingSlugs.push(slugifiedName);
+
+        return `/uploads/${newFilename}`;
+      });
+
       hotelData.images = [...(hotelData.images || []), ...imagePaths];
 
       fs.writeFileSync(filePath, JSON.stringify(hotelData, null, 2));
-      res.status(200).json({ 
-        message: 'Images uploaded successfully', 
-        images: imagePaths 
+      res.status(200).json({
+        message: 'Images uploaded successfully',
+        images: imagePaths
       });
     } catch (error) {
       res.status(500).json({ message: 'Failed to process image upload', error });
     }
   }
 ];
+

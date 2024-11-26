@@ -25,5 +25,9 @@
   "location": {
     "latitude": 40.7128,
     "longitude": -74.006
-  }
+  },
+  "images": [
+    "/uploads/1732613818401-hotel2.png",
+    "/uploads/1732613818403-hotel3.png"
+  ]
 }

@@ -1,16 +1,12 @@
 {
-  "hotelId": "6bb9e701-45be-4354-9de3-071f7c0e63ef",
-  "title": "hotel----01 ~ ! @ # $ % ^ & * ( ) - _ + | ' : ; ? / . , < >",
-  "description": "sdfgdsdsgadsdhdsffdsgfdgfdgdfgfdgfdgfd",
+  "hotelId": "765dba62-9190-485e-b01c-3e28b56c5328",
+  "slug": "luxury-suite-hotel",
+  "title": "Luxury Suite Hotel",
+  "description": "A beautiful luxury hotel",
   "guestCount": 4,
   "bedroomCount": 2,
   "bathroomCount": 2,
   "amenities": [
-    "Barbecue grill",
-    "Washer",
-    "Kitchen",
-    "Parking available",
-    "Outdoor Space",
     "wifi",
     "pool"
   ],
@@ -29,10 +25,5 @@
   "location": {
     "latitude": 40.7128,
     "longitude": -74.006
-  },
-  "images": [
-    "/uploads/1731920791364-1.png",
-    "/uploads/1731920884300-4.png",
-    "/uploads/1731920884306-5.png"
-  ]
+  }
 }

@@ -18,7 +18,7 @@ curl http://localhost:5000/api/hotel/4520e21d-b0a3-41b7-8785-a5449f0b59c3
 curl -X POST http://localhost:5000/api/hotel \
 -H "Content-Type: application/json" \
 -d '{
-  "title": "--& Luxury Suite Hotel-5 * ___ star----",
+  "title": "--& Nadim * ___ star---- ! @ # $ % ^ & * ( ) _ - + = { } [ ] : ; |  , < > .  ?",
   "description": "sdfgdsdsgad",
   "guestCount": 4,
   "bedroomCount": 2,

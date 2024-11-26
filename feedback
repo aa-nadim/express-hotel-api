@@ -1,0 +1,7 @@
+1. Readme and project setup instructions are okay.
+2. The slug field is missing in the API response.
+3. There is an object property access error in the hotelService.js file.
+4. Hotel field validation is missing for a few fields like guestCount, bedroomCount, bathroomCount, etc.
+5. Tests ran successfully.
+6. The image URL should be slugified to avoid spacing in the image name.
+6. Core API features are working fine

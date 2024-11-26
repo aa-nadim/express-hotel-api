@@ -27,7 +27,7 @@ This project provides REST APIs for serving hotel details using Node.js, Express
 1. Clone the repository:
     ```bash
     git clone https://github.com/aa-nadim/express-hotel-api.git
-    cd express-hotel-api.git
+    cd express-hotel-api
     ```
 
 2. Install dependencies:
@@ -71,47 +71,6 @@ Get all rooms
     Description: Retrieve a list of all rooms.
 ```
 
-## Folder Structure
-```
-express-hotel-api.git/
-├── src/
-│   ├── config/
-│   │   └── config.ts
-│   ├── controllers/
-│   │   ├── hotelController.ts
-│   │   ├── imageController.ts
-│   │   └── roomController.ts
-│   ├── data
-│   │   └── 8c2114f5-5679-4749-a46e-26cffdfc8d17.json(for example)
-│   ├── interfaces/
-│   │   └── hotelInterface.ts
-│   ├── middleware/
-│   │   ├── errorHandler.ts
-│   │   └── uploadMiddleware.ts
-│   ├── models/
-│   │   └── roomModel.ts
-│   ├── routes/
-│   │   ├── hotelRoutes.ts
-│   │   ├── imageRoutes.ts
-│   │   └── roomRoutes.ts
-│   ├── services/
-│   │   ├── hotelService.ts
-│   │   ├── imageService.ts
-│   │   └── roomService.ts
-│   ├── utils/
-│   │   ├── database.ts
-│   │   ├── slug.ts
-│   │   └── validation.ts
-│   └── app.ts
-├── tests/
-│   └── hotel.test.ts
-├── uploads/
-│   └── 1731478221396-1.png(for example)
-├── .gitignore
-├── jest.config.js
-├── package.json
-└── tsconfig.json
-```
 
 ## Request
 

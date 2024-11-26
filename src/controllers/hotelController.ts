@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import multer from 'multer';
 import config from '../config/config';
+import { slugify } from '../utils/slug'; 
 
 // Helper function to read hotel data safely
 const readHotelData = (filePath: string) => {
@@ -42,26 +43,41 @@ const isValidHotelData = (data: any) => {
 if (!fs.existsSync(config.dataDir)) {
   fs.mkdirSync(config.dataDir, { recursive: true });
 }
+
 // POST /api/hotel - Create a new hotel
 export const createHotel = (req: Request, res: Response) => {
   const hotelData = req.body;
-  
+
+  // Validate the hotel data
   if (!isValidHotelData(hotelData)) {
     return res.status(400).json({ message: 'Invalid hotel data' });
   }
 
+  // Generate a unique hotelId using UUID
   const hotelId = uuidv4();
+
+  // Generate a slug from the hotel title
+  const slug = slugify(hotelData.title);
+
+  // Create the hotel object with the new slug
+  const hotel = {
+    hotelId,
+    slug,
+    ...hotelData, // Spread the rest of the hotel data
+  };
+
+  // Define the file name and file path to save the hotel data
   const fileName = `${hotelId}.json`;
   const filePath = path.join(config.dataDir, fileName);
 
   try {
-    const hotel = {
-      hotelId,
-      ...hotelData
-    };
+    // Save the hotel data to a file
     fs.writeFileSync(filePath, JSON.stringify(hotel, null, 2));
+
+    // Return the hotel object in the response
     res.status(201).json(hotel);
   } catch (error) {
+    console.error('Error creating hotel:', error);
     res.status(500).json({ message: 'Failed to create hotel', error });
   }
 };
